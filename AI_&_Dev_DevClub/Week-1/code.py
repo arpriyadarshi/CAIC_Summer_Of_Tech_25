@@ -231,7 +231,17 @@ from sklearn.feature_selection import mutual_info_regression
 
 # X: feature DataFrame (without the target column)
 # y: target column (e.g. df['log_likes'] or df['likes'])
+# TF-IDF
+from sklearn.feature_extraction.text import TfidfVectorizer
 
+feature_cols = num_cols + binary_cols
+tfidf = TfidfVectorizer(max_features=1000, stop_words='english', ngram_range=(1, 2))
+tfidf_matrix = tfidf.fit_transform(df['new_content'].fillna(''))
+tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=tfidf.get_feature_names_out())
+
+# Combine features
+X = pd.concat([df[feature_cols].reset_index(drop=True), tfidf_df.reset_index(drop=True)], axis=1)
+y = df['log_likes']
 # Compute MI
 mi_scores = mutual_info_regression(X, y)
 
@@ -243,3 +253,20 @@ print("📊 Top features by mutual information:")
 print(mi_series.head(20))
 
 
+
+
+#Features Used in the Model 
+'''
+hour:	The hour of the day when the post was made (0–23). Captures diurnal activity trends and user engagement patterns.
+day_of_week:	Day of the week the post was made (0 = Monday, ..., 6 = Sunday). Useful for capturing weekday/weekend engagement cycles.
+char_len:	Number of characters in the post. Helps assess content length and its impact on performance.
+word_count:	Number of words in the post. Similar to char_len, but more language-aware (helps with verbosity vs. clarity).
+polarity:	Sentiment polarity score (typically from -1 to 1) of the post. Can indicate how sentiment correlates with engagement.
+company_avg_log_likes:	Average log-likes for the inferred company based on historical data. Acts as a proxy for company popularity.
+has_hashtag:	Indicates whether the post includes at least one hashtag. Hashtags can improve discoverability.
+has_mention:	Indicates if the post mentions another account. Mentions often increase visibility and interaction.
+is_weekend:	Whether the post was made on a weekend (Saturday/Sunday). Engagement patterns can differ on weekends.
+has_photo:	Whether the post includes a photo. Posts with media often get more engagement.
+has_video:	Whether the post includes a video. Similar to has_photo, but captures richer content.
+has_gif:	Whether the post contains a GIF. GIFs may attract more attention or imply casual tone.
+'''
