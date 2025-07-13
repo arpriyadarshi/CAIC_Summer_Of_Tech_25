@@ -1,21 +1,17 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import torch
+import os
+from dotenv import load_dotenv
+import google.generativeai as genai
 
 class AITweetGenerator:
     def __init__(self):
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-        self.model = GPT2LMHeadModel.from_pretrained('gpt2')
-        self.tokenizer.pad_token = self.tokenizer.eos_token
-    
-    def generate_ai_tweet(self, prompt, max_length=60):
-        inputs = self.tokenizer.encode(prompt, return_tensors='pt')
-        with torch.no_grad():
-            outputs = self.model.generate(
-                inputs,
-                max_length=max_length,
-                temperature=0.8,
-                do_sample=True,
-                pad_token_id=self.tokenizer.eos_token_id
-            )
-        generated = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return generated[len(prompt):].strip()[:280]
+        load_dotenv()
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY is missing or not loaded.")
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel("models/gemini-2.5-flash")  # or any model you listed
+
+    def generate_ai_tweet(self, prompt):
+        response = self.model.generate_content(prompt)
+        tweet = response.text.strip()
+        return tweet  # ensure it fits within Twitter's limit

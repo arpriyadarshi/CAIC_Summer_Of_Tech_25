@@ -99,7 +99,29 @@ def generate_and_predict():
 def generate_ai_and_predict():
     try:
         data = request.get_json()
-        prompt = data.get('prompt', 'Exciting tech news:')
+
+        # Check for required fields explicitly
+        required_fields = ["company", "message", "tweet_type", "topic", "date", "media"]
+        missing = [field for field in required_fields if field not in data or not data[field]]
+        if missing:
+            return jsonify({
+                "error": f"Missing required fields: {', '.join(missing)}",
+                "success": False
+            }), 400
+
+        company = data["company"]
+        message = data["message"]
+        tweet_type = data["tweet_type"]
+        topic = data["topic"]
+        date = data["date"]
+        media = data["media"]
+
+        # Build a clear and natural prompt using the input values
+        prompt = (
+            f"Compose a meaningful, complete tweet (max 280 characters) for {company} "
+            f"announcing: {message}. The tweet should be about {topic}, engaging, "
+            f"and suitable for Twitter. Avoid cutting off mid-sentence."
+        )
 
         # Step 1: Generate tweet from AI
         generated_tweet = ai_generator.generate_ai_tweet(prompt)
@@ -107,12 +129,12 @@ def generate_ai_and_predict():
         # Step 2: Prepare data for prediction
         predictor_input = {
             "content": generated_tweet,
-            "date": data.get("date", "2025-06-17 09:30:00"),
-            "media": data.get("media", "no_media"),
-            "inferred company": data.get("company", "OpenAI")
+            "date": date,
+            "media": media,
+            "inferred company": company
         }
 
-        # Step 3: Send to likes prediction API
+        # Step 3: Send to Likes Predictor API
         response = requests.post("http://127.0.0.1:5000/predict", json=predictor_input)
 
         if response.status_code == 200:
