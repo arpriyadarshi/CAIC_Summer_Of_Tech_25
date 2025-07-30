@@ -1,55 +1,122 @@
-# 🚀 CAIC Summer of Tech (CSoT'25)
-Welcome to the official repository for **CAIC Summer of Tech (CSoT'25)**!
+# 🤖 CAIC Summer of Technology 2025: ML+Dev Track
+
+## Introduction
+
+Welcome to the **Machine Learning + Development (ML+Dev)** track of CAIC Summer of Technology 2025!
+
+This vertical is designed not only to teach you the basics of ML but to help you **build, integrate, and deploy full systems** that solve real-world problems. You’ll go from a raw dataset to a deployed web app that predicts and generates marketing content — a hands-on journey through **ML, backend, and frontend integration.**
 
 ---
 
-## 🎯 About the Initiative
+## Why ML+Dev?
 
-To promote a strong tech culture among students—especially freshers—we proudly present **CAIC Summer of Tech (CSoT)**. This initiative is inspired by **DevClub Summer of Code**, and aims to provide structured exposure to various development tracks in a beginner-friendly manner.
+This track emphasizes **practical product building** using ML. Here's what you’ll gain:
 
-Whether you're just getting started or looking to explore new domains, this is your launchpad into the world of tech at IIT Delhi.
-
----
-
-## 📦 What to Expect
-
-- **Project-Based Learning**: Each track contains **hands-on projects** that are designed to help you build as you learn.
-- **Low-Barrier Entry**: **THE LEVEL OF EXECUTION WILL BE INTENTIONALLY KEPT ACCESSIBLE** so that **maximum participation and learning** is encouraged.
-- **Inter-IIT Tech Meet Prep**: Projects are curated around themes and **problem statements from previous Inter-IIT Tech Meets**.
-- **5-Week Tracks**: Each domain track runs over **five weeks**, giving you time to explore, build, and grow.
-- **Mentorship & Guidance**: All tracks will be led by **relevant clubs and societies under CAIC**, ensuring domain expertise and real-time feedback.
+- **Full-stack product thinking**: Connect data science to real-world use cases.
+- **ML as a component**: Learn to embed ML models in real software systems.
+- **Deployment and DevOps**: Deploy your own models online with interactive UIs.
+- **Resume-worthy work**: Have a hosted link, codebase, and demo ready by the end.
 
 ---
 
-## 🔍 Why You Should Join
+## What Problem Are We Solving?
 
-- Learn by doing, not just watching
-- Build real-world projects collaboratively
-- Discover your interests across diverse domains
-- Be part of a growing tech community at IIT Delhi
-- Get early insights into the **selection for the Inter-IIT working contingent**
+Inspired by Adobe Experience Cloud, you’ll build a content intelligence tool with two tasks:
 
-We recommend you explore every track—at least initially—to understand what excites you the most. We’re confident you’ll find the process engaging, enriching, and empowering.
+### Task 1: Predict Likes (Behavior Simulation)
+Given a tweet's metadata, predict how many likes it will receive. Marketers can use this to estimate engagement *before posting.*
+
+### Task 2: Generate Tweet Text (Content Simulation)
+Given metadata, generate tweet content that is engaging and aligned with the brand tone.
+
+Together, these simulate and create content — powered by ML but designed as usable tools.
 
 ---
 
-# Different Paths:
-As mentioned above, **THE LEARNING CURVE HAS BEEN INTENTIONALLY KEPT GENTLE TO ENCOURAGE EVERYONE TO TRY THE TRACKS!**
+## Weekly Roadmap — CAIC Summer of Tech: ML+Dev Track
 
-## [AI+Dev by Devclub](AI+Dev_Devclub/)
+### Week 1: Problem Understanding & Dataset Familiarization
+Focus on:
+- Understanding the ML problem
+- Loading & inspecting data
+- Light preprocessing and EDA
+- Planning integration (what features will go into the model? how will API accept inputs?)
 
-## [GenAI by ACES ACM x ARIES](GenAI_ACES_ACM_X_ARIES/)
+✅ *Deliverable*: Cleaned dataset, insight-driven features, and structured Colab notebook
 
-## [CS Research by ARIES x ACES ACM](CS_Research_ARIES_X_ACES_ACM/)
+---
 
-## [AerialRobotics by AeroClub](AerialRobotics_AeroClub/)
+### Week 2: Build Like Prediction Engine (Task 1)
+Focus on:
+- Feature engineering
+- ML model development for likes
+- Save model using `joblib` or `pickle`
+- Create an API that takes input and returns predicted likes
 
-## [Cybersecurity by Devclub](CyberSecurity_Devclub/)
+✅ *Deliverable*: Trained model + REST API (Flask/FastAPI)
 
-## [FullStack by Devclub](FullStack_Devclub/)
+---
 
-## [Gamedev by Devclub](Gamedev_Devclub/)
+### Week 3: Build Tweet Generation Engine (Task 2)
+Focus on:
+- Fine-tune or use a text generation model
+- Wrap it into a callable function
+- Serve it as an API
 
-## [Interactive Light Pollution Visualization by Physics and Astronomy Club](Interactive_Light_Pollution_Visualization_PAC/)
+✅ *Deliverable*: Working generative model + API to return generated tweet
 
-## [Supply Chain Economics by Finance Club X ANCC](Supply_Chain_Economics_And_Finance_Club_X_ANCC/)
+---
+
+### Week 4: Frontend + System Integration
+Focus on:
+- Create UI using Streamlit, React or Flask
+- Connect frontend → backend APIs → ML models
+- Make it interactive (input metadata → get likes and/or tweet)
+
+✅ *Deliverable*: Locally working end-to-end app
+
+---
+
+### Week 5: Deployment & Showcasing
+Focus on:
+- Containerization (optional)
+- Deploy to Hugging Face Spaces, Render, Vercel, etc.
+- Make a project video
+- Write a devlog/blog
+
+✅ *Deliverable*: Hosted working demo + GitHub repo + presentation
+
+---
+
+## Tools & Technologies
+
+- **ML**: Scikit-learn, Transformers, XGBoost, HuggingFace
+- **Dev**: Python, FastAPI / Flask, Streamlit / React
+- **Deployment**: HuggingFace Spaces, Render, Docker
+- **Data Analysis**: Pandas, Seaborn, Matplotlib
+
+---
+
+## Learning Resources
+
+- [Kaggle: Intro to ML](https://www.kaggle.com/learn/intro-to-machine-learning)
+- [ML Model Deployment Guide](https://mlops.community/)
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
+- [Streamlit Docs](https://docs.streamlit.io/)
+- [HuggingFace Spaces Guide](https://huggingface.co/docs/hub/spaces)
+
+---
+
+## FAQ
+
+**Q: Will I learn ML from scratch?**  
+A: Yes — but even more, you’ll learn how to **use it in real apps**.
+
+**Q: Is this dev or ML-focused?**  
+A: It's ML-powered, but **product/dev-focused** — your main goal is to build something usable with ML inside it.
+
+---
+
+## Let’s Go!
+
+Build it. Use it. Ship it. 🚀
