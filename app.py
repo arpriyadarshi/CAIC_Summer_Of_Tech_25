@@ -108,19 +108,24 @@ def predict_likes(content, inferred_company, date, media):
 # ───────────────────────────── Streamlit UI ─────────────────────────────
 
 st.subheader("🧠 Generate AI Tweet + Predict Likes")
-company = st.text_input("Company", "OpenAI")
-tweet_type = st.selectbox("Tweet Type", ["announcement", "question", "general"])
-message = st.text_area("Message", "just launched GPT-5!")
-topic = st.text_input("Topic", "AI")
-date = st.text_input("Date (YYYY-MM-DD HH:MM:SS)", "2025-06-17 09:30:00")
-media = st.text_input("Media Type (e.g., Photo(openai.jpg), Video)", "Photo")
+
+if st.button("🔄 Reset Fields", key="reset_generator_fields"):
+    for key in ["company", "tweet_type", "message", "topic"]:
+        st.session_state[key] = ""
+
+company = st.text_input("Company", key="company")
+tweet_type = st.selectbox("Tweet Type", ["announcement", "question", "general"], key="tweet_type")
+message = st.text_area("Message", key="message")
+topic = st.text_input("Topic", key="topic")
+
+
 
 if st.button("✨ Generate Tweet & Predict Likes"):
     generated = generator.generate_ai_tweet(f"Write a highly engaging tweet for {company} about {topic}. "
     f"The tweet should be in the tone of a {tweet_type}. "
     f"Include this message: '{message}'. "
     f"Only return the tweet. Do not explain or list multiple options. Do not fact-check. use hashtags meaningfully. may use emojis if appropriate. within 280 characters.")
-    predicted = predict_likes(generated, company, date, media)
+    predicted = predict_likes(generated, company, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "no_media")
     st.success("✅ Generated Tweet:")
     st.text_area("Generated Tweet", generated, height=150)
     st.info(f"📊 Predicted Likes: {predicted}")
@@ -128,10 +133,15 @@ if st.button("✨ Generate Tweet & Predict Likes"):
 st.markdown("---")
 
 st.subheader("🧲 Predict Likes from Manual Tweet")
-manual_content = st.text_area("Tweet Content")
-manual_company = st.text_input("Inferred Company", "OpenAI")
-manual_date = st.text_input("Tweet Date (YYYY-MM-DD HH:MM:SS)", "2025-06-17 09:30:00")
-manual_media = st.text_input("Media", "Photo(openai_launch.jpg)")
+
+if st.button("🔄 Reset Fields", key="reset_manual_fields"):
+    for key in ["manual_content", "manual_company", "manual_date", "manual_media"]:
+        st.session_state[key] = ""
+
+manual_content = st.text_area("Tweet Content", key="manual_content")
+manual_company = st.text_input("Inferred Company", key="manual_company")
+manual_date = st.text_input("Tweet Date (YYYY-MM-DD HH:MM:SS)", key="manual_date")
+manual_media = st.text_input("Media Type (e.g., Photo, Video)", key="manual_media")
 
 if st.button("📈 Predict Likes Only"):
     predicted = predict_likes(manual_content, manual_company, manual_date, manual_media)
